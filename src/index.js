@@ -39,7 +39,7 @@ function renderTrainer(trainer) {
 
     releaseBtn.addEventListener('click', ()=> {
       pokeList.removeChild(li)
-      releasePokemon(trainer, i)
+      releasePokemon(i)
     })
   }
 
@@ -49,23 +49,25 @@ function renderTrainer(trainer) {
 }
 
 function addPokemon(trainer) {
-  // debugger
-  fetch(`http://localhost:3000/pokemons`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({trainer_id:trainer.id})
-  })
-  // .then(resp => resp.json())
-  // .then(json => renderTrainer)
-  setTimeout(renderTrainers, 75)
+  if (trainer.pokemons.length < 6) {
+    fetch(`http://localhost:3000/pokemons`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({trainer_id:trainer.id})
+    })
+    setTimeout(renderTrainers, 75)
+  } else {
+    window.alert('You can only have six pokemon on a team')
+  }
 }
 
-function releasePokemon(trainer, pokemon) {
+function releasePokemon(pokemon) {
   fetch(`http://localhost:3000/pokemons/${pokemon.id}`, {
     method: 'DELETE'
   })
+  setTimeout(renderTrainers, 75)
 }
 
 
