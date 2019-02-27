@@ -18,7 +18,10 @@ function renderTrainer(trainer) {
   let trainerDiv = document.createElement('div')
   trainerArea.appendChild(trainerDiv)
   trainerDiv.classList.add('card')
-  trainerDiv.innerText = trainer.name
+
+  let nameP = document.createElement('p')
+  trainerDiv.appendChild(nameP)
+  nameP.innerText = trainer.name
 
   let addBtn = document.createElement('button')
   trainerDiv.appendChild(addBtn)
@@ -57,7 +60,7 @@ function addPokemon(trainer) {
       },
       body: JSON.stringify({trainer_id:trainer.id})
     })
-    setTimeout(renderTrainers, 75)
+    setTimeout(renderTrainers, 50)
   } else {
     window.alert('You can only have six pokemon on a team')
   }
@@ -67,7 +70,7 @@ function releasePokemon(pokemon) {
   fetch(`http://localhost:3000/pokemons/${pokemon.id}`, {
     method: 'DELETE'
   })
-  setTimeout(renderTrainers, 75)
+  setTimeout(renderTrainers, 50)
 }
 
 
